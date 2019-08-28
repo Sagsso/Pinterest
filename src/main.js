@@ -7,59 +7,74 @@ moves = {
     }
 };
 
-    window.onscroll = () => {
+window.onscroll = () => {
 
-        if(window.innerWidth > 375){
-            if (window.pageYOffset >= 150){
-                let fakeMenu = document.querySelector("#fakeHeader");
-                fakeMenu.style.top = "0px";
-                fakeMenu.style.position = "fixed";
-                fakeMenu.style.opacity = "1";
-            }else{
-                let fakeMenu = document.querySelector("#fakeHeader");
-                fakeMenu.style.top = "-75px";
-                fakeMenu.style.position = "fixed";
-                fakeMenu.style.opacity = "0";
+    if (window.innerWidth > 375) {
+        if (window.pageYOffset >= 150) {
+            let fakeMenu = document.querySelector("#fakeHeader");
+            fakeMenu.style.top = "0px";
+            fakeMenu.style.position = "fixed";
+            fakeMenu.style.opacity = "1";
+        } else {
+            let fakeMenu = document.querySelector("#fakeHeader");
+            fakeMenu.style.top = "-75px";
+            fakeMenu.style.position = "fixed";
+            fakeMenu.style.opacity = "0";
+        }
+    } else {
+        let content = document.querySelector("#content");
+        content.ontouchstart = function (e) {
+
+            moves.initial = {
+                x: e.changedTouches[0].clientX,
+                y: e.changedTouches[0].clientY
+            };
+
+        }
+        content.ontouchend = function (e) {
+            console.log(moves);
+        }
+        content.ontouchmove = function (e) {
+            moves.actual = {
+                x: e.changedTouches[0].clientX,
+                y: e.changedTouches[0].clientY
+            };
+
+            if (((moves.initial.y - moves.actual.y) >= 100)) {
+                console.log("ENTRÓ");
+
+                //ocultar
+                let searchbar = document.querySelector("#searchbar");
+                searchbar.classList.add("hide");
+                let footer = document.querySelector("footer");
+                footer.classList.add("hide");
             }
-        }else{
-            let content  = document.querySelector("#content");
-            content.ontouchstart = function(e){
-                
-                moves.initial = {
-                    x: e.changedTouches[0].clientX, 
-                    y: e.changedTouches[0].clientY
-                };
-                
-            }
-            content.ontouchend = function(e){
-                console.log(moves);
-            }
-            content.ontouchmove = function(e){
-                moves.actual = { 
-                    x: e.changedTouches[0].clientX,
-                    y: e.changedTouches[0].clientY
-                };
+            if (((moves.initial.y - moves.actual.y) <= -100)) {
+                console.log("SALIÓ");
 
-                if ( (moves.actual.y - moves.initial.y) < 100){
-                    console.log("ENTRÓ");
-                    
-                    //ocultar
-                    let searchbar = document.querySelector("#searchbar");
-                    searchbar.classList.add("hide");
-                    let footer = document.querySelector("footer");
-                    footer.classList.add("hide");
-                }
-
-                if ( (moves.actual.y - moves.initial.y) > 100){
-                    console.log("SALIO");
-                    
-                    //ocultar
-                    let searchbar = document.querySelector("#searchbar");
-                    searchbar.classList.remove("hide");
-                    let footer = document.querySelector("footer");
-                    footer.classList.remove("hide");
-                }
-
+                //ocultar
+                let searchbar = document.querySelector("#searchbar");
+                searchbar.classList.remove("hide");
+                let footer = document.querySelector("footer");
+                footer.classList.remove("hide");
             }
         }
     }
+}
+
+let $photos = document.querySelectorAll('.element')
+
+for (let i = 0; i < $photos.length; i++) {
+    $photos[i].onclick = (e) => {
+        console.log(e)
+        let $zoomContainer = document.querySelector('.zoom-container')
+        $zoomContainer.style.display = "none" ? $zoomContainer.style.display = "flex" : $zoomContainer.style.display = "none";
+        let $zoom = document.querySelector('.zoom')
+        if ($zoom.childNodes.length > 0) {
+            $zoom.removeChild($zoom.firstChild)
+        }
+        $zoom.appendChild($photos[i].cloneNode(true))
+
+
+    }
+}

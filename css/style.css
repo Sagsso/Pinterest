@@ -9,7 +9,8 @@ body {
 }
 
 header, #fakeHeader {
-  position: relative;
+  position: fixed;
+  top: 0;
   height: 60px;
   width: 100vw;
   background-color: white;
@@ -71,10 +72,18 @@ header {
   z-index: 1986;
 }
 
+.container {
+
+margin-top: 60px;
+
+}
+
+
 #content {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
   width: 100vw;
-  height: 100vh;
+  height: auto;
   padding: 5px;
 }
 
@@ -130,7 +139,35 @@ footer .btn svg.pinterest path {
   fill: #E6001A;
 }
 
+.zoom-container{
+  display: none;
+  justify-content: center;
+  background-color: #f7eaea;
+  width: 100%;
+}
+.zoom {
+background-color: #ffffff;
+width: 40%;
+height:auto;
+padding:15px 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 20px 0;
+}
+
+.zoom .element{
+min-width: 100%;
+height: auto;
+}
+
+.zoom .element>img {
+ min-width: 100%;
+height: auto;
+}
+
 .column {
+  height: auto;
   padding: 5px;
   display: flex;
   flex-flow: column;
@@ -145,10 +182,12 @@ footer .btn svg.pinterest path {
 .column .element img {
   width: 100%;
   border-radius: 10px;
+  cursor: zoom-in;
 }
 
 @media (max-width: 375px) {
   #content {
+    display: flex;
     flex-flow: row wrap;
     margin-top: 45px;
   }
@@ -166,6 +205,3 @@ footer .btn svg.pinterest path {
     display: none;
   }
 }
-
-
-/*# sourceMappingURL=style.css.map */
