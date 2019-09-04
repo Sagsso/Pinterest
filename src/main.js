@@ -69,9 +69,10 @@ for (let i = 0; i < $photos.length; i++) {
         console.log(e)
         let $zoomContainer = document.querySelector('.zoom-container')
         $zoomContainer.style.display = "none" ? $zoomContainer.style.display = "flex" : $zoomContainer.style.display = "none";
+        $zoomContainer.classList.add('to-column')
         let $zoom = document.querySelector('.zoom')
         if ($zoom.childNodes.length > 0) {
-            $zoom.removeChild($zoom.firstChild)
+            $zoom.removeChild($zoom.lastChild)
         }
         $zoom.appendChild($photos[i].cloneNode(true))
 
