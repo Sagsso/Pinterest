@@ -178,6 +178,7 @@ width: 40%;
 height:auto;
 padding:15px 20px;
 margin: 20px 0;
+border-radius: 8px;
 }
 .top-bar {
   display: flex;
